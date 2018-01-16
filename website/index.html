@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <!--          --> <meta charset="utf8" />
+        <!--  |\_/|   --> <title>scrollcat</title>
+        <!--  |. .|   --> <meta property="og:title" content="scrollcat" />
+        <!--  | - |   --> <meta property="og:type"  content="website" />
+        <!--  |=====  --> <meta property="og:url"   content="https://sc.rollc.at/" />
+        <!--  |   === --> <meta property="og:image" content="https://sc.rollc.at/head.png" />
+        <!--  |   |   --> <meta property="og:description" content="Help me find the end of my cat." />
+        <!--  |   |   --> <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <!--  |   |   --> <!-- tbc! -->
+        <script>
+         function more() {
+             $("#cat").append(
+                 $('<div class="segment">')
+             );
+         }
+         $(function() {
+             $(window).on("scroll", function() {
+                 for (var i = 10;
+                     ($(window).scrollTop() >= ($(document).height() -
+                                                $(window).height() - 10)) || i == 0;
+                     i--) {
+                     more();
+                 }
+             }).scroll();
+         });
+        </script>
+        <style>
+         #cat {
+             max-width: 700px;
+             margin: auto;
+         }
+         div .head {
+             margin:  0 0;
+             padding: 0 0;
+             width:   429px;
+             height:  315px;
+             background-image: url("head.png");
+         }
+         div .segment {
+             margin:  0 0 0 200px;
+             padding: 0 0;
+             width:   219px;
+             height:  316px;
+             background-image: url("segment.png");
+         }
+        </style>
+    </head>
+    <body><div id="cat">
+        <!--  |   |   --> <div class="head"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  |   |   --> <div class="segment"></div>
+        <!--  .....   --> <!-- tbc? -->
+    </div><noscript>
+        Congratulations!
+        
+        Despite all my trickery,
+        you have found the end of my cat.
+    </noscript></body>
+</html>
