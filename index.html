@@ -18,9 +18,10 @@
          }
          $(function() {
              $(window).on("scroll", function() {
+                 var threshold = window.innerHeight / 2;
                  for (var i = 10;
                      ($(window).scrollTop() >= ($(document).height() -
-                                                $(window).height() - 10)) || i == 0;
+                                                $(window).height() - threshold)) || i == 0;
                      i--) {
                      more();
                  }
