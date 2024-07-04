@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <title>datecat</title>
+        <meta name="referrer" content="no-referrer">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <meta name="color-scheme" content="light dark">
+        <meta property="og:title" content="datecat" />
+        <meta property="og:type"  content="website" />
+        <meta property="og:url"   content="https://sc.rollc.at/dating.html" />
+        <meta property="og:image" content="https://sc.rollc.at/head.png" />
+        <meta property="og:description" content="Helping you find the best match for your cat." />
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+        <script>
+         // Fix the circle constant lol
+         Math.TAU = Math.PI * 2.0;
+
+         const names = [
+             // misc
+             "Kitty", "Kitteh",
+             // Catalan
+             "Gat", "Gatet",
+             // Croatian
+             "Mačka", "Mačak",
+             // Czech & Slovak
+             "Kočka", "Kocourek", "Kocúr",
+             // German
+             "Katze", "Löwe",
+             // Greek
+             "Gata", "Gatos",
+             "Γάτα", "Γάτος",
+             // Japanese
+             "Neko",
+             // Latvian
+             "Kaķis", "Kaķēns", "Kaķitis", "Runcis", "Kaķene",
+             // Luxembourgish
+             "Kaz",
+             // Polish
+             "Kot", "Kiciuś", "Kicia", "Mruczysław",
+             "Filemon", "Bonifacy",
+             // Romanian
+             "Pisică",
+             // Swahili
+             "Paka",
+             // Ukrainian
+             "Кіт", "Кошеня",
+             // Zulu
+             "Ikati",
+             // Memes
+             "Catato", "Pouch Catato",
+             // Rest in Peace, Beloved.
+             "Kocyba", "Icia", "Stopek", "Lucky", "Carlos",
+             // Wikipedia: List of individual cats
+             "Félicette", "Michi", "Mittens", "Gacek", "Tombili",
+             "Stepan", "Longcat", "Grumpy Cat", "Maru", "Delilah",
+             "Zoe the Cat, PhD", "Colonel Meow",
+             // Wikipedia: List of fictional cats
+             "Cheshire Cat", "Crookshanks", "Speaker-to-Animals",
+             "Garfield", "Heathcliff", "Hobbes", "Señor Don Gato",
+             "Mr. Bigglesworth", "Puss in Boots", "Spot",
+             "Sylvester", "Tom", "Cait Sith",
+             // OS X
+             "Cheetah", "Puma", "Jaguar", "Panther", "Tiger",
+             "Leopard", "Snow Leopard", "Lion", "Mountain Lion",
+             // Pain of Salvation
+             "Panther (trapped in a dog's world)",
+             // me & my cats xD
+             "rollcat", "scrollcat",
+             "Cookie", "Spottie",
+             // totally legit
+             "copycat", "catfish",
+             // JS lol
+             "undefined",
+         ];
+
+         const places = [
+             "in a spaceship nearby",
+             "in the orbit of your planet",
+             "in your area",
+             "in your backyard",
+             "in your city",
+             "in your immediate area",
+             "in your kitchen",
+             "in your town",
+             "in your village",
+             "in your wardrobe",
+             "near you",
+             "near your location",
+             "nearby",
+             "next door",
+             "next to the food bowl",
+             "on a night out",
+             "on the wrong side of the door",
+             "on their way to murder a rat",
+             "on their way to murder a squirrel",
+             "on your couch",
+             "on your desk",
+             "on your laps",
+             "right behind you",
+         ];
+
+         const bios = [
+             // memes
+             {text: "can I haz cheezburger?"},
+             {text: "so I herd u liek mudkip?"},
+             // most original tinder bios
+             {text: "no one night stands!!! pet me once, pet me forever"},
+             {text: "420? sry im into catnip only"},
+             {text: "looking for a hooman to pet me"},
+             {text: "i'm actually 19 but i feel 18"},
+             {text: "i'm actually 22 but i feel 23"},
+             {text: "i'm actually 62 but i feel 29"},
+             {text: "proud parent of 19 kittens"},
+             {text: "catch me if you can"},
+             {text: "show me around your fridge"},
+             {text: "cat people only!!! dogs be gone!!!"},
+             {text: "pls be tall"},
+             {text: "looking for smthn serious! funny people be gone!"},
+             {text: "more cat pics after we match"},
+             {text: "#yolo"},
+             {text: "looking for a crime purrtner to murder a birb"},
+             {text: "my purrtner & i are looking for a unicat"},
+             {text: "all dogs are bastards"},
+             {text: "travel addict, visited 84 and lived in 7 garbage bins"},
+             // Tigret - Catnip Trip
+             {link: "https://www.youtube.com/watch?v=ZzIXkvz7Mfg"},
+             // Tigret - Dinner Time Motherfucker
+             {link: "https://www.youtube.com/watch?v=VyXl55ZAUIQ"},
+             // scrollcat
+             {link: "https://sc.rollc.at", text: "follow me on catbook"},
+             {link: "https://sc.rollc.at", text: "follow me on cattok"},
+             {link: "https://sc.rollc.at", text: "follow me on cattube"},
+             {link: "https://sc.rollc.at", text: "follow me on instacat"},
+             {link: "https://sc.rollc.at", text: "follow me on kitter"},
+             {link: "https://sc.rollc.at", text: "follow me on onlycats"},
+         ];
+
+         const donate = [
+             "https://en.wosp.org.pl/wspieraj",
+             "https://www.dnalounge.com/donate/",
+             "https://www.openbsd.org/donations.html",
+             "https://www.orangutan.or.id/donate",
+             "https://www.roteskreuz.at/ich-will-helfen/ich-will-geldspenden",
+             "https://www.samariterbund.net/mitwirken-und-spenden/spenden/",
+             // thank you Kevin
+             "https://buymeacoffee.com/kevinbalicot",
+         ];
+
+         const donateTeasers = [
+             `Look at you with all of this money you didn't spend in our app`,
+             `All the coolest cats will like you better if you'd give us money`,
+             `Is that money in your pocket? Would be a shame if you had to spend it on your cat instead of giving it to us`,
+         ];
+
+         function randomChoice(xs) {
+             return xs[Math.floor(Math.random() * xs.length)];
+         }
+         function gaussianRandom(mean, stdev) {
+             const u = 1 - Math.random();
+             const v = Math.random();
+             const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(Math.TAU * v);
+             return z * stdev + mean;
+         }
+         function randomAge() {
+             let age = Math.floor(gaussianRandom(24, 8));
+             if (age < 18) {
+                 age = age + Math.floor(gaussianRandom(6, 4));
+             }
+             if (age < 18) {
+                 age = randomChoice([
+                     "six weeks",
+                     "totally not underage",
+                     "NaN", "Infinity", // JS lol
+                 ]);
+             }
+             return age;
+         }
+         function randomLocation() {
+             if ("geolocation" in navigator) {
+                 // TODO: bundle a DB of common countries / cities?
+             }
+             return randomChoice(places);
+         }
+         function randomProfile() {
+             let name = randomChoice(names);
+             let age = randomAge();
+             let location = randomLocation();
+             let bio = "";
+             if (Math.random() < 0.6) {
+                 bio = randomChoice(bios);
+             }
+             return {
+                 asl: "" + name + ", " + age + ", " + location,
+                 bio: bio,
+             };
+         }
+         function showDonate() {
+             window.location = randomChoice(donate);
+         }
+         function confirmDonate(message) {
+             if (confirm(message)) {
+                 showDonate();
+             }
+         }
+         function newCat(first) {
+             let profile = randomProfile();
+             $(".card .photo img").remove();
+             let img = $("<img>", {src: "https://cataas.com/cat?width=350&height=600#" + Math.random()});
+             $(".card .photo").html(img);
+             $(".card .asl").text(profile.asl);
+             if (profile.bio && profile.bio.link) {
+                 let a = $("<a>")
+                     .attr("href", profile.bio.link)
+                     .text(profile.bio.text || profile.bio.link);
+                 $(".card .bio").html(a);
+             } else {
+                 $(".card .bio").text(profile.bio? profile.bio.text : "");
+             }
+             if (!(first == true)) {
+                 $("#undo").attr("disabled", false);
+                 if (Math.random() < 0.1) {
+                     confirmDonate(randomChoice(donateTeasers));
+                 }
+             }
+         }
+         $(function() {
+             $("#undo").attr("disabled", true);
+             $("#donate").on("click", showDonate);
+             $("#meh").on("click", newCat);
+             $("#whatever").on("click", newCat);
+             $("#ok").on("click", newCat);
+             $("#undo").on("click", function() {
+                 confirmDonate(`Forgot to click "Flex money"? Now's your final chance!`);
+             });
+             newCat(true);
+         });
+
+        </script>
+        <style>
+         .card-ui {
+             margin: 0 auto;
+             min-width: 250px;
+             max-width: 350px;
+         }
+         .card {
+             position: relative;
+             background: rgba(0, 0, 0, 0.1);
+             color: #222;
+             min-height: 600px;
+             text-shadow: 0 1px 4px #FFF,
+                          0 0 12px #FFF;
+             ;
+         }
+         .card .description {
+             position: absolute;
+             left: 20px;
+             right: 20px;
+             bottom: 20px;
+             font-family: system-ui, sans-serif;
+         }
+         .card .description .asl {
+             font-size: x-large;
+         }
+         .card .description .bio {
+         }
+         .buttons {
+             display: flex;
+         }
+         .buttons button {
+             flex: min-content;
+         }
+        </style>
+    </head>
+    <body>
+        <div class="card-ui">
+            <div class="card">
+                <div class="photo"></div>
+                <div class="description">
+                    <div class="asl">Cat, 42, near you</div>
+                    <div class="bio"></div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="undo" disabled="1">Oops</button>
+                <button id="meh">Meh</button>
+                <button id="whatever">Whatever</button>
+                <button id="ok">OK I guess</button>
+                <button id="donate">Flex money</button>
+            </div>
+        </div>
+    </body>
+</html>
