@@ -207,7 +207,7 @@
          function newCat(first) {
              let profile = randomProfile();
              $(".card .photo img").remove();
-             let img = $("<img>", {src: "https://cataas.com/cat?width=350&height=600#" + Math.random()});
+             let img = $("<img>", {src: "https://cataas.com/cat?width=350&height=600&random=" + Math.random()});
              $(".card .photo").html(img);
              $(".card .asl").text(profile.asl);
              if (profile.bio && profile.bio.link) {
