@@ -83,6 +83,7 @@
              "in your area",
              "in your backyard",
              "in your city",
+             "in your garbage bin",
              "in your immediate area",
              "in your kitchen",
              "in your town",
@@ -90,17 +91,19 @@
              "in your wardrobe",
              "near you",
              "near your location",
+             "near your loCATion",
              "nearby",
              "next door",
              "next to the food bowl",
              "on a night out",
              "on the wrong side of the door",
-             "on their way to murder a rat",
-             "on their way to murder a squirrel",
              "on your couch",
              "on your desk",
+             "on your keyboard",
              "on your laps",
+             "on your rooftop",
              "right behind you",
+             "stuck on a tree",
          ];
 
          const bios = [
@@ -111,21 +114,25 @@
              {text: "no one night stands!!! pet me once, pet me forever"},
              {text: "420? sry im into catnip only"},
              {text: "looking for a hooman to pet me"},
-             {text: "i'm actually 19 but i feel 18"},
-             {text: "i'm actually 22 but i feel 23"},
-             {text: "i'm actually 62 but i feel 29"},
              {text: "proud parent of 19 kittens"},
              {text: "catch me if you can"},
+             {text: "cat me if you can"},
+             {text: "pet me if you can"},
              {text: "show me around your fridge"},
              {text: "cat people only!!! dogs be gone!!!"},
              {text: "pls be tall"},
              {text: "looking for smthn serious! funny people be gone!"},
              {text: "more cat pics after we match"},
              {text: "#yolo"},
-             {text: "looking for a crime purrtner to murder a birb"},
              {text: "my purrtner & i are looking for a unicat"},
              {text: "all dogs are bastards"},
              {text: "travel addict, visited 84 and lived in 7 garbage bins"},
+             {text: "travel addict, visited 46 and lived in 5 pet shelters"},
+             // lying about their age
+             {text: "i'm actually 19 but i feel 18"},
+             {text: "i'm actually 22 but i feel 23"},
+             {text: "i'm actually 62 but i feel 29"},
+             {func: function() { return "i'm actually " + randomAge(); }},
              // Tigret - Catnip Trip
              {link: "https://www.youtube.com/watch?v=ZzIXkvz7Mfg"},
              // Tigret - Dinner Time Motherfucker
@@ -138,6 +145,21 @@
              {link: "https://sc.rollc.at", text: "follow me on kitter"},
              {link: "https://sc.rollc.at", text: "follow me on onlycats"},
          ];
+
+         // More murder
+         const murderables = [
+             "a birb",
+             "a flying rat",
+             "a mousie",
+             "a rat",
+             "a snaek",
+             "a squirrel",
+             "some yarn",
+         ];
+         for (let i = 0; i < murderables.length; i++) {
+             places.push("on their way to murder " + murderables[i]);
+             bios.push({text: "looking for a crime purrtner to murder " + murderables[i]});
+         }
 
          const donate = [
              "https://en.wosp.org.pl/wspieraj",
@@ -174,7 +196,8 @@
                  age = randomChoice([
                      "six weeks",
                      "totally not underage",
-                     "NaN", "Infinity", // JS lol
+                     "meowteen",
+                     "NaN",
                  ]);
              }
              return age;
@@ -206,37 +229,51 @@
                  showDonate();
              }
          }
-         function newCat(first) {
+         function newCat(options) {
+             if (!options.first) {
+                 $("#undo").attr("disabled", false);
+             }
+             if (options.match && options.match > 0) {
+                 if (Math.random() < options.match) {
+                     confirmDonate("Congratulations! It's a match! Now give us money to actually pet the cat.");
+                 }
+             } else if (options.nag && options.nag > 0) {
+                 if (Math.random() < options.nag) {
+                     confirmDonate(randomChoice(donateTeasers));
+                 }
+             }
              let profile = randomProfile();
              $(".card .photo img").remove();
              let img = $("<img>", {src: "https://cataas.com/cat?width=350&height=600&random=" + Math.random()});
              $(".card .photo").html(img);
              $(".card .asl").text(profile.asl);
-             if (profile.bio && profile.bio.link) {
-                 let a = $("<a>")
-                     .attr("href", profile.bio.link)
-                     .text(profile.bio.text || profile.bio.link);
-                 $(".card .bio").html(a);
-             } else {
-                 $(".card .bio").text(profile.bio? profile.bio.text : "");
-             }
-             if (!(first == true)) {
-                 $("#undo").attr("disabled", false);
-                 if (Math.random() < 0.1) {
-                     confirmDonate(randomChoice(donateTeasers));
+             if (profile.bio) {
+                 let text = (
+                     profile.bio.func? profile.bio.func() :
+                     profile.bio.text? profile.bio.text :
+                     profile.bio.link? profile.bio.link :
+                     ""
+                 );
+                 if (profile.bio.link) {
+                     let a = $("<a>")
+                         .attr("href", profile.bio.link)
+                         .text(text);
+                     $(".card .bio").html(a);
+                 } else {
+                     $(".card .bio").text(text);
                  }
              }
          }
          $(function() {
              $("#undo").attr("disabled", true);
              $("#donate").on("click", showDonate);
-             $("#meh").on("click", newCat);
-             $("#whatever").on("click", newCat);
-             $("#ok").on("click", newCat);
+             $("#meh").on("click",      function() { return newCat({nag: 0.01             }) });
+             $("#whatever").on("click", function() { return newCat({nag: 0.1, match: 0.05 }) });
+             $("#ok").on("click",       function() { return newCat({nag: 0.2, match: 0.5  }) });
              $("#undo").on("click", function() {
                  confirmDonate(`Forgot to click "Flex money"? Now's your final chance!`);
              });
-             newCat(true);
+             newCat({first: true});
          });
 
         </script>
